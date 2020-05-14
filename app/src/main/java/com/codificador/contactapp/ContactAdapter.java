@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -43,6 +44,7 @@ public class ContactAdapter extends BaseAdapter{
         View rootView = inflater.inflate(R.layout.list_item_row,viewGroup,false);
         TextView textViewName = rootView.findViewById(R.id.textViewName);
         TextView textViewNumber = rootView.findViewById(R.id.textViewNumber);
+        SeekBar seekBar = rootView.findViewById(R.id.seekBar);
         Contact contact = contacts.get(i);
         textViewName.setText(contact.getName());
         textViewNumber.setText(contact.getNumber());

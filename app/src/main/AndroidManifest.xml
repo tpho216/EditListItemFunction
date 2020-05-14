@@ -23,8 +23,11 @@
         <activity
             android:name=".NewContactActivity"
             android:label="New Contact" />
-        <activity android:name=".ViewContactActivity" android:label="View Contact"></activity>
-        <activity android:name=".EditContactActivity" android:label="Edit Contact"></activity>
+        <activity android:name=".ViewContactActivity" android:label="View Contact"
+            android:theme="@style/Theme.AppCompat.Dialog"
+            ></activity>
+        <activity android:name=".EditContactActivity" android:label="Edit Contact"
+            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"></activity>
     </application>
 
 </manifest>

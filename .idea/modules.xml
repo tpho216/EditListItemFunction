@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ContactApp.iml" filepath="$PROJECT_DIR$/ContactApp.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/ContactApp-app.iml" filepath="$PROJECT_DIR$/app/ContactApp-app.iml" group="ContactApp/app" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/functional_dev-ContactApp.iml" filepath="$PROJECT_DIR$/functional_dev-ContactApp.iml" group="ContactApp" />
+      <module fileurl="file://$PROJECT_DIR$/EditListItemFunction.iml" filepath="$PROJECT_DIR$/EditListItemFunction.iml" group="EditListItemFunction" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="EditListItemFunction/app" />
     </modules>
   </component>
 </project>

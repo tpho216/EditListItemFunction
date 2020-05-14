@@ -25,7 +25,7 @@ public class ViewContactActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_contact);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         textViewName = findViewById(R.id.textViewName);
         textViewPhoneNumber = findViewById(R.id.textViewNumber);
