@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.codificador.contactapp.ViewContactActivity">
+    tools:context="com.codificador.contactapp.ViewListItemActivity">
 
     <LinearLayout
         android:background="@color/layoutBg"
@@ -50,14 +50,14 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/buttonCall"
+            android:id="@+id/buttonCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_marginRight="10dp"
-            android:background="@color/colorAccent"
-            android:textColor="@color/white"
-            android:text="Call" />
+            android:layout_weight="1"
+            android:background="@android:color/darker_gray"
+            android:text="Cancel"
+            android:textColor="@color/colorPrimary" />
 
     </LinearLayout>
 </LinearLayout>

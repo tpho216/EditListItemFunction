@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context="com.codificador.contactapp.EditListItemActivity"
+    android:orientation="vertical"
+
+    >
+
+    <EditText
+        android:layout_margin="5dp"
+        android:id="@+id/editTextName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="enter the listItem name"
+         />
+
+    <EditText
+        android:layout_margin="5dp"
+        android:id="@+id/editTextNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="phone"
+        android:hint="enter the listItem number"
+        />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="103dp"
+            android:layout_height="49dp"
+            android:layout_gravity="bottom"
+            android:background="@color/layoutBg"
+
+            android:text="Maximum"
+            android:textSize="20dp"></TextView>
+
+        <EditText
+            android:layout_margin="5dp"
+            android:id="@+id/editSeekbar_max"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Set the maximum seek bar value"
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="102dp"
+            android:layout_height="49dp"
+            android:layout_gravity="bottom"
+            android:background="@color/layoutBg"
+
+            android:text="Minimum"
+            android:textSize="20dp"></TextView>
+
+        <EditText
+            android:layout_margin="5dp"
+            android:id="@+id/editSeekbar_min"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Set the maximum seek bar value"
+            />
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+
+        <Button
+            android:id="@+id/buttonOK"
+            android:layout_width="173dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@color/layoutBg"
+            android:text="OK"
+            android:textColor="@color/colorPrimary" />
+
+        <Button
+            android:id="@+id/buttonCancel"
+            android:layout_width="178dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@color/layoutBg"
+            android:text="Cancel"
+            android:textColor="@color/colorPrimary" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

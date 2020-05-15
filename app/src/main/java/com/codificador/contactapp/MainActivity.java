@@ -3,13 +3,11 @@ package com.codificador.contactapp;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.XmlResourceParser;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.ContextMenu;
 import android.view.View;
 import android.view.Menu;
@@ -18,12 +16,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-
 public class MainActivity extends AppCompatActivity {
 
     ListView listView;
-    ContactAdapter adapter;
+    ListItemAdapter adapter;
     DatabaseHelper databaseHelper;
 
     static final int NEW_CONTACT_REQUEST_CODE = 1;
@@ -34,20 +30,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initViews();
+        XmlResourceParser xml = getResources().getXml(R.xml.default_config);
     }
 
     private void initViews(){
         listView = findViewById(R.id.listView);
 
         databaseHelper = new DatabaseHelper(MainActivity.this);
-        adapter = new ContactAdapter(MainActivity.this,databaseHelper.getAllContacts());
+        adapter = new ListItemAdapter(MainActivity.this,databaseHelper.getAllContacts());
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                viewContact((Contact) adapter.getItem(i));
+                viewContact((ListItem) adapter.getItem(i));
                 selectedPos = i;
             }
         });
@@ -64,18 +61,18 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.actionAdd:
-                Intent intent = new Intent(MainActivity.this,NewContactActivity.class);
+                Intent intent = new Intent(MainActivity.this, NewListItemActivity.class);
                 startActivityForResult(intent, NEW_CONTACT_REQUEST_CODE);
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void viewContact(Contact contact){
-        Intent viewContactIntent = new Intent(MainActivity.this,ViewContactActivity.class);
-        viewContactIntent.putExtra("id",contact.getId());
-        viewContactIntent.putExtra("name",contact.getName());
-        viewContactIntent.putExtra("number",contact.getNumber());
+    private void viewContact(ListItem listItem){
+        Intent viewContactIntent = new Intent(MainActivity.this, ViewListItemActivity.class);
+        viewContactIntent.putExtra("id", listItem.getId());
+        viewContactIntent.putExtra("name", listItem.getName());
+        viewContactIntent.putExtra("number", listItem.getNumber());
         startActivity(viewContactIntent);
     }
 
@@ -84,21 +81,21 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == NEW_CONTACT_REQUEST_CODE){
             if(resultCode == RESULT_OK){
-                Contact contact = (Contact) data.getSerializableExtra("contact");
-                long insertedId = databaseHelper.insertContact(contact);
-                contact.setId(insertedId);
-                adapter.addContact(contact);
+                ListItem listItem = (ListItem) data.getSerializableExtra("listItem");
+                long insertedId = databaseHelper.insertContact(listItem);
+                listItem.setId(insertedId);
+                adapter.addContact(listItem);
                 adapter.notifyDataSetChanged();
-                Toast.makeText(this, "New contacts added successfully.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "New listItems added successfully.", Toast.LENGTH_SHORT).show();
             }
         }else if(requestCode == EDIT_CONTACT_REQUEST_CODE){
             if(resultCode == RESULT_OK){
-                Contact contact = (Contact) data.getSerializableExtra("contact");
-                int rows = databaseHelper.update(contact);
+                ListItem listItem = (ListItem) data.getSerializableExtra("listItem");
+                int rows = databaseHelper.update(listItem);
                 if(rows > 0){
-                    adapter.updateContact(contact,selectedPos);
+                    adapter.updateContact(listItem,selectedPos);
                     adapter.notifyDataSetChanged();
-                    Toast.makeText(this, "Contact updated successfully.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "ListItem updated successfully.", Toast.LENGTH_SHORT).show();
                 }
             }
         }
@@ -109,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreateContextMenu(menu, v, menuInfo);
         getMenuInflater().inflate(R.menu.option_menu,menu);
         menu.setHeaderTitle("Options");
+
     }
 
     int selectedPos = -1;
@@ -118,38 +116,38 @@ public class MainActivity extends AppCompatActivity {
         selectedPos = menuInfo.position;
         switch (item.getItemId()){
             case R.id.actionCall:
-                call((Contact) adapter.getItem(selectedPos));
+                call((ListItem) adapter.getItem(selectedPos));
                 break;
             case R.id.actionEdit:
-                edit((Contact) adapter.getItem(selectedPos));
+                edit((ListItem) adapter.getItem(selectedPos));
                 break;
             case R.id.actionDelete:
-                delete((Contact) adapter.getItem(selectedPos),selectedPos);
+                delete((ListItem) adapter.getItem(selectedPos),selectedPos);
                 break;
         }
         return super.onContextItemSelected(item);
     }
 
-    private void call(Contact contact){
+    private void call(ListItem listItem){
         if(checkPermission()){
             Intent callIntent = new Intent(Intent.ACTION_CALL);
-            callIntent.setData(Uri.parse("tel:"+contact.getNumber()));
+            callIntent.setData(Uri.parse("tel:"+ listItem.getNumber()));
             startActivity(callIntent);
         }
     }
 
-    private void edit(Contact contact){
-        Intent intent = new Intent(MainActivity.this,EditContactActivity.class);
-        intent.putExtra("contact",contact);
+    private void edit(ListItem listItem){
+        Intent intent = new Intent(MainActivity.this, EditListItemActivity.class);
+        intent.putExtra("listItem", listItem);
         startActivityForResult(intent, EDIT_CONTACT_REQUEST_CODE);
     }
 
-    private void delete(Contact contact,int position){
-        int rows = databaseHelper.delete(contact.getId());
+    private void delete(ListItem listItem, int position){
+        int rows = databaseHelper.delete(listItem.getId());
         if(rows > 0){
             adapter.removeContact(position);
             adapter.notifyDataSetChanged();
-            Toast.makeText(this, "Contact successfully deleted", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "ListItem successfully deleted", Toast.LENGTH_SHORT).show();
         }
     }
 

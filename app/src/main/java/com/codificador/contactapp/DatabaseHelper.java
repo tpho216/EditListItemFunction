@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    static final String DB_NAME = "contacts.db";
+    static final String DB_NAME = "listItems.db";
     static final String TABLE_NAME = "contact";
     static final String COLUMN_NAME = "name";
     static final String COLUMN_NUMBER = "number";
@@ -39,12 +39,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public long insertContact(Contact newContact){
+    public long insertContact(ListItem newListItem){
         try{
             SQLiteDatabase database = getWritableDatabase();
             ContentValues contentValues = new ContentValues();
-            contentValues.put(COLUMN_NAME,newContact.getName());
-            contentValues.put(COLUMN_NUMBER,newContact.getNumber());
+            contentValues.put(COLUMN_NAME, newListItem.getName());
+            contentValues.put(COLUMN_NUMBER, newListItem.getNumber());
             long row = database.insert(TABLE_NAME,null,contentValues);
             return row;
         }catch (Exception e){
@@ -53,8 +53,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public ArrayList<Contact> getAllContacts(){
-        ArrayList<Contact> list = new ArrayList<>();
+    public ArrayList<ListItem> getAllContacts(){
+        ArrayList<ListItem> list = new ArrayList<>();
         SQLiteDatabase database = getReadableDatabase();
         Cursor cursor = database.query(TABLE_NAME,null,null,null,null,null,null);
         cursor.moveToFirst();
@@ -62,8 +62,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             String name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME));
             String number = cursor.getString(cursor.getColumnIndex(COLUMN_NUMBER));
             long id = cursor.getLong(cursor.getColumnIndex(COLUMN_ID));
-            Contact contact = new Contact(id,name,number);
-            list.add(contact);
+            ListItem listItem = new ListItem(id,name,number);
+            list.add(listItem);
             cursor.moveToNext();
         }
         cursor.close();
@@ -77,13 +77,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return rows;
     }
 
-    public int update(Contact contact){
+    public int update(ListItem listItem){
         try{
             SQLiteDatabase database = getWritableDatabase();
             ContentValues contentValues = new ContentValues();
-            contentValues.put(COLUMN_NAME,contact.getName());
-            contentValues.put(COLUMN_NUMBER,contact.getNumber());
-            int rows = database.update(TABLE_NAME,contentValues,COLUMN_ID+" =? ",new String[]{contact.getId()+""});
+            contentValues.put(COLUMN_NAME, listItem.getName());
+            contentValues.put(COLUMN_NUMBER, listItem.getNumber());
+            int rows = database.update(TABLE_NAME,contentValues,COLUMN_ID+" =? ",new String[]{listItem.getId()+""});
             return rows;
         }catch (Exception e){
             e.printStackTrace();

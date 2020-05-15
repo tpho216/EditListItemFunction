@@ -21,12 +21,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".NewContactActivity"
+            android:name=".NewListItemActivity"
             android:label="New Contact" />
-        <activity android:name=".ViewContactActivity" android:label="View Contact"
+        <activity android:name=".ViewListItemActivity" android:label="View List Item"
             android:theme="@style/Theme.AppCompat.Dialog"
             ></activity>
-        <activity android:name=".EditContactActivity" android:label="Edit Contact"
+        <activity android:name=".EditListItemActivity" android:label="Edit List Item"
             android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"></activity>
     </application>
 

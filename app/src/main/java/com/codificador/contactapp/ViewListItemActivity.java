@@ -12,10 +12,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class ViewContactActivity extends AppCompatActivity {
+public class ViewListItemActivity extends AppCompatActivity {
 
     TextView textViewName, textViewPhoneNumber;
-    Button buttonCall;
+    Button buttonCancel;
 
     String strName, strNumber;
     long id;
@@ -23,13 +23,13 @@ public class ViewContactActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_contact);
+        setContentView(R.layout.activity_view_list_item);
 
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         textViewName = findViewById(R.id.textViewName);
         textViewPhoneNumber = findViewById(R.id.textViewNumber);
-        buttonCall = findViewById(R.id.buttonCall);
+        buttonCancel = findViewById(R.id.buttonCancel);
 
         if(getIntent() == null){
             finish();
@@ -41,25 +41,18 @@ public class ViewContactActivity extends AppCompatActivity {
             textViewPhoneNumber.setText(strNumber);
         }
 
-        buttonCall.setOnClickListener(new View.OnClickListener() {
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                call();
+                finish();
             }
         });
     }
 
-    private void call(){
-        if(checkPermission()){
-            Intent callIntent = new Intent(Intent.ACTION_CALL);
-            callIntent.setData(Uri.parse("tel:"+strNumber));
-            startActivity(callIntent);
-        }
-    }
 
     private boolean checkPermission(){
-        if(ActivityCompat.checkSelfPermission(ViewContactActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(ViewContactActivity.this,new String[]{Manifest.permission.CALL_PHONE},123);
+        if(ActivityCompat.checkSelfPermission(ViewListItemActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(ViewListItemActivity.this,new String[]{Manifest.permission.CALL_PHONE},123);
             return false;
         }
         return true;

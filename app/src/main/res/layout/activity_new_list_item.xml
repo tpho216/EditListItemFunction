@@ -2,11 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    tools:context="com.codificador.contactapp.EditContactActivity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.codificador.contactapp.NewListItemActivity"
     android:orientation="vertical"
-
     >
 
     <EditText
@@ -16,7 +15,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
-        android:hint="enter the contact name"
+        android:hint="enter the listItem name"
          />
 
     <EditText
@@ -26,15 +25,15 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="phone"
-        android:hint="enter the contact number"
+        android:hint="enter the listItem number"
         />
 
     <Button
         android:layout_margin="5dp"
-        android:id="@+id/buttonUpdate"
+        android:id="@+id/buttonAdd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorAccent"
         android:textColor="@color/white"
-        android:text="Update Contact" />
+        android:text="Save Contact" />
 </LinearLayout>
