@@ -3,6 +3,7 @@ package com.codificador.contactapp;
 import android.content.Context;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +12,14 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.warkiz.widget.IndicatorSeekBar;
+import com.warkiz.widget.IndicatorStayLayout;
+import com.warkiz.widget.OnSeekChangeListener;
+import com.warkiz.widget.SeekParams;
 
 import java.util.ArrayList;
+
+import static android.content.ContentValues.TAG;
+import static java.security.AccessController.getContext;
 
 /**
  * Created by Seng on 11/14/2017.
@@ -51,17 +58,12 @@ public class ListItemAdapter extends BaseAdapter{
         View rootView = inflater.inflate(R.layout.list_item_row,viewGroup,false);
         TextView textViewName = rootView.findViewById(R.id.textViewName);
         TextView textViewValue = rootView.findViewById(R.id.textViewValue);
-
-        IndicatorSeekBar indicatorSeekBar = rootView.findViewById(R.id.indicatorSeekBar);
+        final IndicatorSeekBar indicatorSeekBar = rootView.findViewById(R.id.indicatorSeekBar);
         indicatorSeekBar.setMin(listItems.get(i).getSeekbar_min());
         indicatorSeekBar.setMax(listItems.get(i).getSeekbar_max());
         indicatorSeekBar.setProgress(listItems.get(i).getValue());
-
         indicatorSeekBar.hideThumb(true);
         indicatorSeekBar.setUserSeekAble(false);
-        indicatorSeekBar.setClickable(false);
-        indicatorSeekBar.setFocusable(false);
-
         ListItem listItem = listItems.get(i);
         textViewName.setText(listItem.getName());
         textViewValue.setText(String.valueOf(listItem.getValue()));

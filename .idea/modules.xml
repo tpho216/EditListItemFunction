@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/EditListItemFunction.iml" filepath="$PROJECT_DIR$/.idea/EditListItemFunction.iml" group="EditListItemFunction" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="EditListItemFunction/app" />
+      <module fileurl="file://$PROJECT_DIR$/dev-EditListItemFunction.iml" filepath="$PROJECT_DIR$/dev-EditListItemFunction.iml" group="EditListItemFunction" />
     </modules>
   </component>
 </project>

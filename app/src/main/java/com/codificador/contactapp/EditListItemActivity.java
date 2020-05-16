@@ -32,12 +32,12 @@ public class EditListItemActivity extends AppCompatActivity {
 
     private void initViews(){
         editTextName = findViewById(R.id.editTextName);
-        editTextValue = findViewById(R.id.editTextNumber);
+        editTextValue = findViewById(R.id.editTextValue);
         editSeekbar_max = findViewById(R.id.editSeekbar_max);
         editSeekbar_min = findViewById(R.id.editSeekbar_min);
 
         editTextName.setText(listItem.getName());
-        editTextValue.setText(listItem.getValue());
+        editTextValue.setText(String.valueOf(listItem.getValue()));
 
         buttonOK= findViewById(R.id.buttonOK);
         buttonOK.setOnClickListener(new View.OnClickListener() {

@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ContextMenu;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -23,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     DatabaseHelper databaseHelper;
     Timer mTimer;
     AutoAdjustSeekBarTask mAutoAdjustSeekBarTask;
+    private Handler mHandler = new Handler();
     static final int NEW_CONTACT_REQUEST_CODE = 1;
     static final int EDIT_CONTACT_REQUEST_CODE = 2;
 
@@ -39,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         listView = findViewById(R.id.listView);
 
         databaseHelper = new DatabaseHelper(MainActivity.this);
-        adapter = new ListItemAdapter(MainActivity.this,databaseHelper.getAllContacts());
+        adapter = new ListItemAdapter(MainActivity.this,databaseHelper.getAllListItems());
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
@@ -84,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
         if(requestCode == NEW_CONTACT_REQUEST_CODE){
             if(resultCode == RESULT_OK){
                 ListItem listItem = (ListItem) data.getSerializableExtra("listItem");
-                long insertedId = databaseHelper.insertContact(listItem);
+                long insertedId = databaseHelper.insertListItem(listItem);
                 listItem.setId(insertedId);
                 adapter.addContact(listItem);
                 adapter.notifyDataSetChanged();
@@ -119,7 +122,6 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.actionAutoAdjust:
                 auto_adjust((ListItem) adapter.getItem(selectedPos));
-
                 break;
             case R.id.actionEdit:
                 edit((ListItem) adapter.getItem(selectedPos));
@@ -131,11 +133,26 @@ public class MainActivity extends AppCompatActivity {
         return super.onContextItemSelected(item);
     }
 
-    private void auto_adjust(ListItem listItem){
+    private void auto_adjust(final ListItem listItem){
         mTimer = new Timer();
         mAutoAdjustSeekBarTask = new AutoAdjustSeekBarTask(listItem);
         mTimer.schedule(mAutoAdjustSeekBarTask, 100, 1000);
+
+
+        MainActivity.this.runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+                ((BaseAdapter) listView.getAdapter()).notifyDataSetChanged();
+                mHandler.postDelayed(this, 1000);
+            }
+        });
     }
+
+
+
+
+
 
     private void edit(ListItem listItem){
         Intent intent = new Intent(MainActivity.this, EditListItemActivity.class);

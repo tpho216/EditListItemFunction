@@ -23,7 +23,7 @@ public class NewListItemActivity extends AppCompatActivity {
 
     private void initViews(){
         editTextName = findViewById(R.id.editTextName);
-        editTextValue = findViewById(R.id.editTextNumber);
+        editTextValue = findViewById(R.id.editTextValue);
         buttonAdd = findViewById(R.id.buttonAdd);
         editSeekbar_max = findViewById(R.id.editSeekbar_max);
         editSeekbar_min = findViewById(R.id.editSeekbar_min);
@@ -34,9 +34,9 @@ public class NewListItemActivity extends AppCompatActivity {
                 ListItem listItem = null;
                 if (!editTextValue.getText().toString().equals("") && !editSeekbar_max.getText().toString().equals("") && !editSeekbar_min.getText().toString().equals(""))
                 {
-                    int seekBar_max = Integer.parseInt(editSeekbar_max.getText().toString());
-                    int seekBar_min = Integer.parseInt(editSeekbar_min.getText().toString());
-                    int value = Integer.parseInt(editTextValue.getText().toString());
+                    int seekBar_max = Integer.valueOf(editSeekbar_max.getText().toString());
+                    int seekBar_min = Integer.valueOf(editSeekbar_min.getText().toString());
+                    int value = Integer.valueOf(editTextValue.getText().toString());
 
                     listItem = new ListItem(name, value, seekBar_max, seekBar_min);
                 }

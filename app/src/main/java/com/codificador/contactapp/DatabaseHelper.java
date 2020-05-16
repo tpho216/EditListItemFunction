@@ -39,7 +39,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public long insertContact(ListItem newListItem){
+    public long insertListItem(ListItem newListItem){
         try{
             SQLiteDatabase database = getWritableDatabase();
             ContentValues contentValues = new ContentValues();
@@ -53,7 +53,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public ArrayList<ListItem> getAllContacts(){
+    public ArrayList<ListItem> getAllListItems(){
         ArrayList<ListItem> list = new ArrayList<>();
         SQLiteDatabase database = getReadableDatabase();
         Cursor cursor = database.query(TABLE_NAME,null,null,null,null,null,null);

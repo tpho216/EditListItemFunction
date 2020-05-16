@@ -20,7 +20,7 @@
 
     <EditText
         android:layout_margin="5dp"
-        android:id="@+id/editTextNumber"
+        android:id="@+id/editTextValue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -49,11 +49,11 @@
         android:inputType="phone" />
 
     <Button
-        android:layout_margin="5dp"
         android:id="@+id/buttonAdd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         android:background="@color/layoutBg"
-        android:textColor="@color/colorPrimary"
-        android:text="Save Contact" />
+        android:text="Save List Item"
+        android:textColor="@color/colorPrimary" />
 </LinearLayout>
