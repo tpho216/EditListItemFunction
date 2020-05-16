@@ -28,12 +28,32 @@
         android:hint="enter the listItem number"
         />
 
+
+    <EditText
+        android:id="@+id/editSeekbar_max"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:ems="10"
+        android:hint="Set the maximum seek bar value"
+        android:inputType="phone" />
+
+
+    <EditText
+        android:id="@+id/editSeekbar_min"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:ems="10"
+        android:hint="Set the minimum seek bar value"
+        android:inputType="phone" />
+
     <Button
         android:layout_margin="5dp"
         android:id="@+id/buttonAdd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
-        android:textColor="@color/white"
+        android:background="@color/layoutBg"
+        android:textColor="@color/colorPrimary"
         android:text="Save Contact" />
 </LinearLayout>

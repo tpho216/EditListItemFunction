@@ -10,7 +10,7 @@ import android.widget.EditText;
 
 public class NewListItemActivity extends AppCompatActivity {
 
-    EditText editTextName, editTextNumber;
+    EditText editTextName, editTextValue, editSeekbar_max, editSeekbar_min, editSeekbar_progress;
     Button buttonAdd;
 
     @Override
@@ -23,14 +23,26 @@ public class NewListItemActivity extends AppCompatActivity {
 
     private void initViews(){
         editTextName = findViewById(R.id.editTextName);
-        editTextNumber = findViewById(R.id.editTextNumber);
+        editTextValue = findViewById(R.id.editTextNumber);
         buttonAdd = findViewById(R.id.buttonAdd);
+        editSeekbar_max = findViewById(R.id.editSeekbar_max);
+        editSeekbar_min = findViewById(R.id.editSeekbar_min);
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String name = editTextName.getText().toString();
-                String number = editTextNumber.getText().toString();
-                ListItem listItem = new ListItem(name,number);
+                ListItem listItem = null;
+                if (!editTextValue.getText().toString().equals("") && !editSeekbar_max.getText().toString().equals("") && !editSeekbar_min.getText().toString().equals(""))
+                {
+                    int seekBar_max = Integer.parseInt(editSeekbar_max.getText().toString());
+                    int seekBar_min = Integer.parseInt(editSeekbar_min.getText().toString());
+                    int value = Integer.parseInt(editTextValue.getText().toString());
+
+                    listItem = new ListItem(name, value, seekBar_max, seekBar_min);
+                }
+                else {
+                    listItem = new ListItem(name);
+                }
                 Intent intent = new Intent();
                 intent.putExtra("listItem", listItem);
                 setResult(RESULT_OK,intent);

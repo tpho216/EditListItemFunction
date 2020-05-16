@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.warkiz.widget.IndicatorSeekBar;
@@ -49,16 +50,21 @@ public class ListItemAdapter extends BaseAdapter{
     public View getView(int i, View view, ViewGroup viewGroup) {
         View rootView = inflater.inflate(R.layout.list_item_row,viewGroup,false);
         TextView textViewName = rootView.findViewById(R.id.textViewName);
-        TextView textViewNumber = rootView.findViewById(R.id.textViewNumber);
+        TextView textViewValue = rootView.findViewById(R.id.textViewValue);
+
         IndicatorSeekBar indicatorSeekBar = rootView.findViewById(R.id.indicatorSeekBar);
         indicatorSeekBar.setMin(listItems.get(i).getSeekbar_min());
         indicatorSeekBar.setMax(listItems.get(i).getSeekbar_max());
-        indicatorSeekBar.setProgress(90);
+        indicatorSeekBar.setProgress(listItems.get(i).getValue());
+
+        indicatorSeekBar.hideThumb(true);
+        indicatorSeekBar.setUserSeekAble(false);
         indicatorSeekBar.setClickable(false);
         indicatorSeekBar.setFocusable(false);
+
         ListItem listItem = listItems.get(i);
         textViewName.setText(listItem.getName());
-        textViewNumber.setText(listItem.getNumber());
+        textViewValue.setText(String.valueOf(listItem.getValue()));
         return rootView;
     }
 

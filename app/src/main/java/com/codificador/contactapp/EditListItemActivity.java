@@ -11,7 +11,7 @@ import android.widget.EditText;
 
 public class EditListItemActivity extends AppCompatActivity {
     String mTAG = "EditListItemActivity";
-    EditText editTextName, editTextNumber;
+    EditText editTextName, editTextValue;
     EditText editSeekbar_max, editSeekbar_min;
     Button buttonOK;
     Button buttonCancel;
@@ -32,19 +32,19 @@ public class EditListItemActivity extends AppCompatActivity {
 
     private void initViews(){
         editTextName = findViewById(R.id.editTextName);
-        editTextNumber = findViewById(R.id.editTextNumber);
+        editTextValue = findViewById(R.id.editTextNumber);
         editSeekbar_max = findViewById(R.id.editSeekbar_max);
         editSeekbar_min = findViewById(R.id.editSeekbar_min);
 
         editTextName.setText(listItem.getName());
-        editTextNumber.setText(listItem.getNumber());
+        editTextValue.setText(listItem.getValue());
 
         buttonOK= findViewById(R.id.buttonOK);
         buttonOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String name = editTextName.getText().toString();
-                String number = editTextNumber.getText().toString();
+                int value = Integer.parseInt(editTextValue.getText().toString());
 
                 Log.d(mTAG, editSeekbar_max.getText().toString());
                 if (!editSeekbar_max.getText().toString().equals("") && !editSeekbar_min.getText().toString().equals(""))
@@ -60,7 +60,7 @@ public class EditListItemActivity extends AppCompatActivity {
                 //don't update listItem id, because just we are updating the name & number
 
                 listItem.setName(name);
-                listItem.setNumber(number);
+                listItem.setValue(value);
                 Intent intent = new Intent();
                 intent.putExtra("listItem", listItem);
                 setResult(RESULT_OK,intent);

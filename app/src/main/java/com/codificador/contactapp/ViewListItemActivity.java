@@ -1,9 +1,7 @@
 package com.codificador.contactapp;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,10 +12,11 @@ import android.widget.TextView;
 
 public class ViewListItemActivity extends AppCompatActivity {
 
-    TextView textViewName, textViewPhoneNumber;
+    TextView textViewName, textViewValue;
     Button buttonCancel;
 
-    String strName, strNumber;
+    String strName;
+    int intValue;
     long id;
 
     @Override
@@ -28,17 +27,18 @@ public class ViewListItemActivity extends AppCompatActivity {
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         textViewName = findViewById(R.id.textViewName);
-        textViewPhoneNumber = findViewById(R.id.textViewNumber);
+        textViewValue = findViewById(R.id.textViewValue);
         buttonCancel = findViewById(R.id.buttonCancel);
 
         if(getIntent() == null){
             finish();
+
         }else{
             strName = getIntent().getStringExtra("name");
-            strNumber = getIntent().getStringExtra("number");
+            intValue = getIntent().getIntExtra("value", 0);
             id = getIntent().getLongExtra("id",-1);
             textViewName.setText(strName);
-            textViewPhoneNumber.setText(strNumber);
+            textViewValue.setText(String.valueOf(intValue));
         }
 
         buttonCancel.setOnClickListener(new View.OnClickListener() {

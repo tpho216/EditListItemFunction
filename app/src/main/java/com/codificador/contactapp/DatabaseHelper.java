@@ -44,7 +44,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             SQLiteDatabase database = getWritableDatabase();
             ContentValues contentValues = new ContentValues();
             contentValues.put(COLUMN_NAME, newListItem.getName());
-            contentValues.put(COLUMN_NUMBER, newListItem.getNumber());
+            contentValues.put(COLUMN_NUMBER, newListItem.getValue());
             long row = database.insert(TABLE_NAME,null,contentValues);
             return row;
         }catch (Exception e){
@@ -60,9 +60,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.moveToFirst();
         while (!cursor.isAfterLast()){
             String name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME));
-            String number = cursor.getString(cursor.getColumnIndex(COLUMN_NUMBER));
+            int value = Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_NUMBER)));
             long id = cursor.getLong(cursor.getColumnIndex(COLUMN_ID));
-            ListItem listItem = new ListItem(id,name,number);
+            ListItem listItem = new ListItem(id,name,value);
             list.add(listItem);
             cursor.moveToNext();
         }
@@ -77,12 +77,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return rows;
     }
 
+
     public int update(ListItem listItem){
         try{
             SQLiteDatabase database = getWritableDatabase();
             ContentValues contentValues = new ContentValues();
             contentValues.put(COLUMN_NAME, listItem.getName());
-            contentValues.put(COLUMN_NUMBER, listItem.getNumber());
+            contentValues.put(COLUMN_NUMBER, listItem.getValue());
             int rows = database.update(TABLE_NAME,contentValues,COLUMN_ID+" =? ",new String[]{listItem.getId()+""});
             return rows;
         }catch (Exception e){

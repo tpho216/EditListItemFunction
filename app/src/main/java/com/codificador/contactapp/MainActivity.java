@@ -3,8 +3,6 @@ package com.codificador.contactapp;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.XmlResourceParser;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -16,12 +14,15 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.util.Timer;
+
 public class MainActivity extends AppCompatActivity {
 
     ListView listView;
     ListItemAdapter adapter;
     DatabaseHelper databaseHelper;
-
+    Timer mTimer;
+    AutoAdjustSeekBarTask mAutoAdjustSeekBarTask;
     static final int NEW_CONTACT_REQUEST_CODE = 1;
     static final int EDIT_CONTACT_REQUEST_CODE = 2;
 
@@ -30,7 +31,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initViews();
-        XmlResourceParser xml = getResources().getXml(R.xml.default_config);
+
+        //XmlResourceParser xml = getResources().getXml(R.xml.default_config);
     }
 
     private void initViews(){
@@ -44,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                viewContact((ListItem) adapter.getItem(i));
+                viewListItem((ListItem) adapter.getItem(i));
                 selectedPos = i;
             }
         });
@@ -68,11 +70,11 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void viewContact(ListItem listItem){
+    private void viewListItem(ListItem listItem){
         Intent viewContactIntent = new Intent(MainActivity.this, ViewListItemActivity.class);
         viewContactIntent.putExtra("id", listItem.getId());
         viewContactIntent.putExtra("name", listItem.getName());
-        viewContactIntent.putExtra("number", listItem.getNumber());
+        viewContactIntent.putExtra("value", listItem.getValue());
         startActivity(viewContactIntent);
     }
 
@@ -115,8 +117,9 @@ public class MainActivity extends AppCompatActivity {
         AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         selectedPos = menuInfo.position;
         switch (item.getItemId()){
-            case R.id.actionCall:
-                call((ListItem) adapter.getItem(selectedPos));
+            case R.id.actionAutoAdjust:
+                auto_adjust((ListItem) adapter.getItem(selectedPos));
+
                 break;
             case R.id.actionEdit:
                 edit((ListItem) adapter.getItem(selectedPos));
@@ -128,12 +131,10 @@ public class MainActivity extends AppCompatActivity {
         return super.onContextItemSelected(item);
     }
 
-    private void call(ListItem listItem){
-        if(checkPermission()){
-            Intent callIntent = new Intent(Intent.ACTION_CALL);
-            callIntent.setData(Uri.parse("tel:"+ listItem.getNumber()));
-            startActivity(callIntent);
-        }
+    private void auto_adjust(ListItem listItem){
+        mTimer = new Timer();
+        mAutoAdjustSeekBarTask = new AutoAdjustSeekBarTask(listItem);
+        mTimer.schedule(mAutoAdjustSeekBarTask, 100, 1000);
     }
 
     private void edit(ListItem listItem){
