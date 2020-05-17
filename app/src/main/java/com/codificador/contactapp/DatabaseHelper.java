@@ -15,14 +15,18 @@ import java.util.ArrayList;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     static final String DB_NAME = "listItems.db";
-    static final String TABLE_NAME = "contact";
+    static final String TABLE_NAME = "list_items";
     static final String COLUMN_NAME = "name";
-    static final String COLUMN_NUMBER = "number";
+    static final String COLUMN_VALUE = "number";
+    static final String COLUMN_SEEKBAR_MIN = "seekbar_min";
+    static final String COLUMN_SEEKBAR_MAX = "seekbar_max";
     static final String COLUMN_ID = "id";
     static final String CREATE_QUERY = "create table "+TABLE_NAME+"("
                                         + COLUMN_ID+" integer primary key,"
                                         + COLUMN_NAME+" text,"
-                                        + COLUMN_NUMBER+" text)";
+                                        + COLUMN_VALUE +" text,"
+                                        + COLUMN_SEEKBAR_MIN +" integer,"
+                                        + COLUMN_SEEKBAR_MAX +" integer" + ")";
     static final int DB_VERSION = 1;
 
     public DatabaseHelper(Context context) {
@@ -44,7 +48,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             SQLiteDatabase database = getWritableDatabase();
             ContentValues contentValues = new ContentValues();
             contentValues.put(COLUMN_NAME, newListItem.getName());
-            contentValues.put(COLUMN_NUMBER, newListItem.getValue());
+            contentValues.put(COLUMN_VALUE, newListItem.getValue());
+            contentValues.put(COLUMN_SEEKBAR_MAX, newListItem.getSeekbar_max());
+            contentValues.put(COLUMN_SEEKBAR_MIN, newListItem.getSeekbar_min());
             long row = database.insert(TABLE_NAME,null,contentValues);
             return row;
         }catch (Exception e){
@@ -60,9 +66,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         cursor.moveToFirst();
         while (!cursor.isAfterLast()){
             String name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME));
-            int value = Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_NUMBER)));
+            int value = Integer.parseInt(cursor.getString(cursor.getColumnIndex(COLUMN_VALUE)));
             long id = cursor.getLong(cursor.getColumnIndex(COLUMN_ID));
-            ListItem listItem = new ListItem(id,name,value);
+            int seekbar_max = Integer.valueOf(cursor.getString(cursor.getColumnIndex(COLUMN_SEEKBAR_MAX)));
+            int seekbar_min = Integer.valueOf(cursor.getString(cursor.getColumnIndex(COLUMN_SEEKBAR_MIN)));
+            ListItem listItem = new ListItem(id,name,value,seekbar_max, seekbar_min);
             list.add(listItem);
             cursor.moveToNext();
         }
@@ -83,7 +91,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             SQLiteDatabase database = getWritableDatabase();
             ContentValues contentValues = new ContentValues();
             contentValues.put(COLUMN_NAME, listItem.getName());
-            contentValues.put(COLUMN_NUMBER, listItem.getValue());
+            contentValues.put(COLUMN_VALUE, listItem.getValue());
+            contentValues.put(COLUMN_SEEKBAR_MAX, listItem.getSeekbar_max());
+            contentValues.put(COLUMN_SEEKBAR_MIN, listItem.getSeekbar_min());
             int rows = database.update(TABLE_NAME,contentValues,COLUMN_ID+" =? ",new String[]{listItem.getId()+""});
             return rows;
         }catch (Exception e){

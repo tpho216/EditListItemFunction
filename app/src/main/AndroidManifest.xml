@@ -22,7 +22,7 @@
         </activity>
         <activity
             android:name=".NewListItemActivity"
-            android:label="New Contact" />
+            android:label="New List Item" />
         <activity android:name=".ViewListItemActivity" android:label="View List Item"
             android:theme="@style/Theme.AppCompat.Dialog"
             ></activity>

@@ -70,7 +70,7 @@ public class ListItemAdapter extends BaseAdapter{
         return rootView;
     }
 
-    public void addContact(ListItem c){
+    public void addListItem(ListItem c){
         listItems.add(c);
     }
 

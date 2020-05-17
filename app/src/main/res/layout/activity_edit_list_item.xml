@@ -26,30 +26,9 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="phone"
-        android:hint="enter the listItem number"
+        android:hint="enter the listItem value"
         />
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
 
-        <TextView
-            android:layout_width="103dp"
-            android:layout_height="49dp"
-            android:layout_gravity="bottom"
-            android:background="@color/layoutBg"
-
-            android:text="Maximum"
-            android:textSize="20dp"></TextView>
-
-        <EditText
-            android:layout_margin="5dp"
-            android:id="@+id/editSeekbar_max"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Set the maximum seek bar value"
-            />
-
-    </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
@@ -66,6 +45,29 @@
         <EditText
             android:layout_margin="5dp"
             android:id="@+id/editSeekbar_min"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Set the minimum seek bar value"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="103dp"
+            android:layout_height="49dp"
+            android:layout_gravity="bottom"
+            android:background="@color/layoutBg"
+
+            android:text="Maximum"
+            android:textSize="20dp"></TextView>
+
+        <EditText
+            android:layout_margin="5dp"
+            android:id="@+id/editSeekbar_max"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Set the maximum seek bar value"

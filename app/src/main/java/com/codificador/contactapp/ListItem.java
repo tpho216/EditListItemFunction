@@ -39,6 +39,14 @@ public class ListItem implements Serializable {
         this.seekbar_min = seekbar_min;
     }
 
+    public ListItem(long id, String name, int value, int seekbar_max, int seekbar_min) {
+        this.id = id;
+        this.name = name;
+        this.value = value;
+        this.seekbar_max = seekbar_max;
+        this.seekbar_min = seekbar_min;
+    }
+
     public ListItem(long id, String name, int value) {
         this.id = id;
         this.name = name;

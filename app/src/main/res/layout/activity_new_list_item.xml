@@ -19,23 +19,12 @@
          />
 
     <EditText
-        android:layout_margin="5dp"
         android:id="@+id/editTextValue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="phone"
-        android:hint="enter the listItem number"
-        />
-
-
-    <EditText
-        android:id="@+id/editSeekbar_max"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:ems="10"
-        android:hint="Set the maximum seek bar value"
+        android:hint="enter the listItem value"
         android:inputType="phone" />
 
 
@@ -46,6 +35,15 @@
         android:layout_margin="5dp"
         android:ems="10"
         android:hint="Set the minimum seek bar value"
+        android:inputType="phone" />
+
+    <EditText
+        android:id="@+id/editSeekbar_max"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:ems="10"
+        android:hint="Set the maximum seek bar value"
         android:inputType="phone" />
 
     <Button

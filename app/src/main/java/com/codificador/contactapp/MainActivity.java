@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                 ListItem listItem = (ListItem) data.getSerializableExtra("listItem");
                 long insertedId = databaseHelper.insertListItem(listItem);
                 listItem.setId(insertedId);
-                adapter.addContact(listItem);
+                adapter.addListItem(listItem);
                 adapter.notifyDataSetChanged();
                 Toast.makeText(this, "New listItems added successfully.", Toast.LENGTH_SHORT).show();
             }
